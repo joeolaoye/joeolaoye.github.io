@@ -25,13 +25,13 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
  .crop {
-  height: 300px;
+  height: auto;
   width: 400px;
   overflow: hidden;
  }
  .crop img {
   height: auto;
-  width: 400px;
+  width: 200px;
  }
  
 .bootstrap-switch {
