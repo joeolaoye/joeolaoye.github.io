@@ -19,15 +19,23 @@ const ContactSection = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate form submission (replace with actual Formspree endpoint)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast({
-        title: "Message sent successfully!",
-        description: "I'll get back to you as soon as possible.",
+      const response = await fetch('https://formspree.io/f/xblkawyl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
       
-      setFormData({ name: '', email: '', message: '' });
+      if (response.ok) {
+        toast({
+          title: "Message sent successfully!",
+          description: "I'll get back to you as soon as possible.",
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error('Failed to send message');
+      }
     } catch (error) {
       toast({
         title: "Error sending message",
