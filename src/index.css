@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Professional Portfolio Design System - All colors MUST be HSL */
+
+@layer base {
+  :root {
+    /* Core brand colors */
+    --background: 0 0% 100%;
+    --foreground: 262 75% 15%;
+    
+    /* Deep purple primary (#300880) */
+    --primary: 262 75% 27%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 262 60% 35%;
+    --primary-glow: 262 70% 45%;
+    
+    /* Vibrant orange-red accent (#f5573b) */
+    --accent: 12 91% 59%;
+    --accent-foreground: 0 0% 98%;
+    --accent-glow: 12 85% 65%;
+    
+    /* Secondary colors */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 262 75% 15%;
+    
+    /* Neutral tones */
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 12 91% 59%;
+    
+    /* Card and surface colors */
+    --card: 0 0% 100%;
+    --card-foreground: 262 75% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 262 75% 15%;
+    
+    /* Status colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    /* Portfolio-specific design tokens */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--accent-glow)));
+    
+    --shadow-card: 0 4px 6px -1px hsl(var(--primary) / 0.1), 0 2px 4px -1px hsl(var(--primary) / 0.06);
+    --shadow-card-hover: 0 20px 25px -5px hsl(var(--primary) / 0.1), 0 10px 10px -5px hsl(var(--primary) / 0.04);
+    --shadow-hero: 0 25px 50px -12px hsl(var(--accent) / 0.25);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+  }
+
+  .dark {
+    /* Dark theme colors with updated purple primary */
+    --background: 262 75% 8%;
+    --foreground: 0 0% 98%;
+    
+    --primary: 262 60% 85%;
+    --primary-foreground: 262 75% 8%;
+    --primary-light: 262 55% 75%;
+    --primary-glow: 262 65% 80%;
+    
+    --accent: 12 85% 65%;
+    --accent-foreground: 262 75% 8%;
+    --accent-glow: 12 80% 70%;
+    
+    --secondary: 262 32% 17%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 262 32% 17%;
+    --muted-foreground: 262 20% 65%;
+    --border: 262 32% 17%;
+    --input: 262 32% 17%;
+    --ring: 12 85% 65%;
+    
+    --card: 262 32% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 262 32% 12%;
+    --popover-foreground: 0 0% 98%;
+    
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Portfolio-specific component styles */
+  .portfolio-card {
+    @apply bg-card border border-border rounded-lg;
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+  
+  .portfolio-card:hover {
+    box-shadow: var(--shadow-card-hover);
+    @apply -translate-y-1;
+  }
+  
+  .hero-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .accent-gradient {
+    background: var(--gradient-accent);
+  }
+  
+  .section-padding {
+    @apply py-20 px-6;
+  }
+  
+  .container-max {
+    @apply max-w-6xl mx-auto;
+  }
+}
