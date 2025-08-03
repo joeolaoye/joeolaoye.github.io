@@ -12,12 +12,12 @@ const ProjectsSection = () => {
       title: "Rova: A mobile first fintech platform live in Nigeria and the UK.",
       description: "Rova is a mobile-first fintech platform that provides financial services to its users. It is live in Nigeria and the UK.",
       images: [
-        "/src/assets/img/rova/0.webp",
-        "/src/assets/img/rova/1.webp",
-        "/src/assets/img/rova/2.webp",
-        "/src/assets/img/rova/3.webp",
-        "/src/assets/img/rova/4.webp",
-        "/src/assets/img/rova/5.webp"
+        "/img/rova/0.webp",
+        "/img/rova/1.webp",
+        "/img/rova/2.webp",
+        "/img/rova/3.webp",
+        "/img/rova/4.webp",
+        "/img/rova/5.webp"
       ],
       tags: ["Flutter", "Java", "MongoDB", "Spring Boot", "AWS", "Docker", "Kubernetes", "MySQL"],
       githubUrl: "https://github.com/roava",
@@ -29,12 +29,12 @@ const ProjectsSection = () => {
       title: "mKobo: A neo-bank platform",
       description: "The digital bank of choice for salary earners. Mkobo.bank gives easy access to 50 percent of your already earned wages anytime before payday at ZERO interest!",
       images: [
-        "/src/assets/img/mkobo/0.webp",
-        "/src/assets/img/mkobo/1.webp",
-        "/src/assets/img/mkobo/2.webp",
-        "/src/assets/img/mkobo/3.webp",
-        "/src/assets/img/mkobo/4.webp",
-        "/src/assets/img/mkobo/5.webp"
+        "/img/mkobo/0.webp",
+        "/img/mkobo/1.webp",
+        "/img/mkobo/2.webp",
+        "/img/mkobo/3.webp",
+        "/img/mkobo/4.webp",
+        "/img/mkobo/5.webp"
       ],
       tags: ["React", "Firebase", "Java", "Spring Boot", "TypeScript"],
       githubUrl: "https://github.com/mkobo",

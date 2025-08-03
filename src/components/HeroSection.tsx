@@ -14,7 +14,7 @@ const HeroSection = () => {
       <div className="container-max text-center text-white animate-fade-in">
         <div className="mb-8">
           <img
-            src="/src/assets/img/favicon.png"
+            src="/img/favicon.png"
             alt="Profile"
             className="w-40 h-40 rounded-full mx-auto mb-6 shadow-2xl"
           />
