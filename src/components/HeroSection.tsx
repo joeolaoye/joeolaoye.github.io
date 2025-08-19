@@ -25,7 +25,7 @@ const HeroSection = () => {
         </h1>
         
         <p className="text-xl md:text-2xl mb-4 text-white/90 font-light">
-          Fullstack Software Engineer and Fintech Consultant
+          Software Leader | Fullstack Software Engineer | Fintech Consultant
         </p>
         
         <p className="text-lg mb-12 text-white/80 max-w-2xl mx-auto leading-relaxed">
@@ -56,7 +56,7 @@ const HeroSection = () => {
         {/* Social Links */}
         <div className="flex justify-center space-x-6">
           <a
-            href="https://github.com"
+            href="https://github.com/joeolaoye"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -64,7 +64,7 @@ const HeroSection = () => {
             <Github className="h-5 w-5" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://linkedin.com/in/joeolaoye"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -72,7 +72,7 @@ const HeroSection = () => {
             <Linkedin className="h-5 w-5" />
           </a>
           <a
-            href="https://twitter.com"
+            href="https://twitter.com/joeolaoye"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
@@ -80,7 +80,7 @@ const HeroSection = () => {
             <Twitter className="h-5 w-5" />
           </a>
           <a
-            href="mailto:joseph@example.com"
+            href="mailto:joseph@tjoc.dev"
             className="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
           >
             <Mail className="h-5 w-5" />

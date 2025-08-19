@@ -18,7 +18,7 @@ const AboutSection = () => {
           <div className="grid md:grid-cols-2 gap-12 items-start">
             <div className="space-y-6">
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a passionate full-stack developer with over 17 years of experience building 
+                I'm a passionate software professional and full-stack developer with over 17 years of experience building 
                 scalable web applications and digital solutions. My journey started with a 
                 computing degree, but my real education came from building real-world 
                 projects and solving complex problems.
