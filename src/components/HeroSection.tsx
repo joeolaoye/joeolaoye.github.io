@@ -35,21 +35,21 @@ const HeroSection = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Button
-            onClick={() => scrollToSection('projects')}
+            onClick={() => scrollToSection('contact')}
             size="lg"
             className="bg-white text-primary hover:bg-white/90 font-semibold group"
           >
-            View My Work
+            Contact Me
             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
           
           <Button
             variant="outline"
             size="lg"
-            onClick={() => scrollToSection('contact')}
+            onClick={() => window.open('https://joeolaoye.co/blog/', '_blank')}
             className="border-white/30 text-white bg-white/10 hover:bg-white/20 font-semibold"
           >
-            Get In Touch
+            Blog
           </Button>
         </div>
 
