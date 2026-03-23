@@ -1,76 +1,148 @@
-import { Button } from '@/components/ui/button';
-import { ArrowUp, Github, Linkedin, Mail, Twitter, Heart } from 'lucide-react';
+import { Github, Linkedin, Twitter, Mail, ArrowUp } from 'lucide-react';
+
+const SOCIALS = [
+  { icon: <Github size={16} />,   href: 'https://github.com/joeolaoye',       label: 'GitHub'   },
+  { icon: <Linkedin size={16} />, href: 'https://linkedin.com/in/joeolaoye',  label: 'LinkedIn' },
+  { icon: <Twitter size={16} />,  href: 'https://twitter.com/joeolaoye',      label: 'Twitter'  },
+  { icon: <Mail size={16} />,     href: 'mailto:olaoye.joseph@gmail.com',     label: 'Email'    },
+];
+
+const NAV_LINKS = [
+  { label: 'About',      id: 'about'      },
+  { label: 'Projects',   id: 'projects'   },
+  { label: 'Consulting', id: 'consulting' },
+  { label: 'Contact',    id: 'contact'    },
+];
 
 const Footer = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const year = new Date().getFullYear();
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const currentYear = new Date().getFullYear();
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="container-max py-12">
-        <div className="grid md:grid-cols-3 gap-8 items-center">
+    <footer
+      style={{
+        background: 'hsl(var(--surface-1))',
+        borderTop: '1px solid hsl(var(--border) / 0.5)',
+      }}
+    >
+      <div className="container-max px-5 md:px-8 py-12">
+        <div className="grid sm:grid-cols-3 gap-10 mb-10">
+
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold mb-2">Joseph Olaoye</h3>
-            <p className="text-primary-foreground/80">
-              Fullstack Software Engineer and Consultant
+            <p
+              className="text-lg font-bold mb-1"
+              style={{ color: 'hsl(var(--foreground))' }}
+            >
+              Joseph Olaoye
+            </p>
+            <p
+              className="text-sm"
+              style={{ color: 'hsl(var(--foreground-subtle))' }}
+            >
+              Software Leader &middot; Fintech Consultant
+              <br />
+              Lagos, Nigeria
             </p>
           </div>
 
-          {/* Social Links */}
-          <div className="flex justify-center space-x-4">
-            <a
-              href="https://github.com/joeolaoye"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
+          {/* Quick nav */}
+          <div>
+            <p
+              className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: 'hsl(var(--foreground-subtle))' }}
             >
-              <Github className="h-5 w-5" />
-            </a>
-            <a
-              href="https://linkedin.com/in/joeolaoye"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
-            <a
-              href="https://twitter.com/joeolaoye"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-            >
-              <Twitter className="h-5 w-5" />
-            </a>
-            <a
-              href="mailto:olaoye.joseph@gmail.com"
-              className="p-2 rounded-lg bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-colors"
-            >
-              <Mail className="h-5 w-5" />
-            </a>
+              Navigation
+            </p>
+            <ul className="space-y-2">
+              {NAV_LINKS.map(({ label, id }) => (
+                <li key={id}>
+                  <button
+                    onClick={() => scrollTo(id)}
+                    className="text-sm transition-colors duration-150"
+                    style={{ color: 'hsl(var(--foreground-muted))' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = 'hsl(var(--foreground))'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'hsl(var(--foreground-muted))'; }}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+              <li>
+                <a
+                  href="https://joeolaoye.co/blog/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm transition-colors duration-150"
+                  style={{ color: 'hsl(var(--foreground-muted))' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'hsl(var(--foreground))'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'hsl(var(--foreground-muted))'; }}
+                >
+                  Blog
+                </a>
+              </li>
+            </ul>
           </div>
 
-          {/* Back to Top */}
-          <div className="flex justify-end">
-            <Button
-              variant="ghost"
-              onClick={scrollToTop}
-              className="text-primary-foreground hover:bg-primary-foreground/10 group"
+          {/* Social */}
+          <div>
+            <p
+              className="text-xs font-semibold uppercase tracking-widest mb-4"
+              style={{ color: 'hsl(var(--foreground-subtle))' }}
             >
-              Back to Top
-              <ArrowUp className="ml-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-            </Button>
+              Connect
+            </p>
+            <div className="flex gap-2 flex-wrap">
+              {SOCIALS.map(({ icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="social-btn"
+                  style={{ width: '38px', height: '38px' }}
+                >
+                  {icon}
+                </a>
+              ))}
+            </div>
           </div>
+
         </div>
 
-        <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
-          <p className="text-primary-foreground/80 text-sm">
-            © {currentYear} made with <Heart className="inline-block h-4 w-4 text-red-500" /> by Joseph Olaoye. All rights reserved.
+        {/* Bottom bar */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8"
+          style={{ borderTop: '1px solid hsl(var(--border) / 0.4)' }}
+        >
+          <p
+            className="text-xs text-center sm:text-left"
+            style={{ color: 'hsl(var(--foreground-subtle))' }}
+          >
+            &copy; {year} Joseph Olaoye. All rights reserved.
           </p>
+
+          <button
+            onClick={scrollTop}
+            className="inline-flex items-center gap-2 text-xs font-medium transition-all duration-150 group"
+            style={{ color: 'hsl(var(--foreground-subtle))' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = 'hsl(var(--foreground))'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = 'hsl(var(--foreground-subtle))'; }}
+            aria-label="Back to top"
+          >
+            Back to top
+            <ArrowUp
+              size={13}
+              className="group-hover:-translate-y-1 transition-transform duration-200"
+            />
+          </button>
         </div>
       </div>
     </footer>

@@ -1,117 +1,147 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, MessageCircle, Send, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+/* ---- Reveal hook ---- */
+const useReveal = (delay = 0) => {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setTimeout(() => el.classList.add('visible'), delay);
+      },
+      { threshold: 0.08 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [delay]);
+  return ref;
+};
+
 const ContactSection = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
+  const [form, setForm]           = useState({ name: '', email: '', message: '' });
+  const [isSubmitting, setSubmit] = useState(false);
+  const { toast }                 = useToast();
+
+  const formRef    = useReveal(0);
+  const sidebarRef = useReveal(150);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
+    setSubmit(true);
     try {
-      const response = await fetch('https://formspree.io/f/xblkawyl', {
+      const res = await fetch('https://formspree.io/f/xblkawyl', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
       });
-      
-      if (response.ok) {
-        toast({
-          title: "Message sent successfully!",
-          description: "I'll get back to you as soon as possible.",
-        });
-        setFormData({ name: '', email: '', message: '' });
+      if (res.ok) {
+        toast({ title: 'Message sent!', description: "I'll get back to you shortly." });
+        setForm({ name: '', email: '', message: '' });
       } else {
-        throw new Error('Failed to send message');
+        throw new Error('Send failed');
       }
-    } catch (error) {
+    } catch {
       toast({
-        title: "Error sending message",
-        description: "Please try again or contact me directly via email.",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Please try again or email me directly.',
+        variant: 'destructive',
       });
     } finally {
-      setIsSubmitting(false);
+      setSubmit(false);
     }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
   };
 
   const contactInfo = [
     {
-      icon: <Mail className="h-5 w-5" />,
-      label: "Email",
-      value: "olaoye.joseph@gmail.com",
-      link: "mailto:olaoye.joseph@gmail.com"
+      icon: <Mail size={16} />,
+      label: 'Email',
+      value: 'olaoye.joseph@gmail.com',
+      href: 'mailto:olaoye.joseph@gmail.com',
     },
     {
-      icon: <Phone className="h-5 w-5" />,
-      label: "Phone",
-      value: "+2348067028442",
-      link: "tel:+2348067028442"
+      icon: <Phone size={16} />,
+      label: 'Phone',
+      value: '+234 806 702 8442',
+      href: 'tel:+2348067028442',
     },
     {
-      icon: <MapPin className="h-5 w-5" />,
-      label: "Location",
-      value: "Lagos, Nigeria",
-      link: null
-    }
+      icon: <MapPin size={16} />,
+      label: 'Location',
+      value: 'Lagos, Nigeria',
+      href: null,
+    },
+  ];
+
+  const socials = [
+    { icon: <Github size={17} />,   href: 'https://github.com/joeolaoye',        label: 'GitHub'   },
+    { icon: <Linkedin size={17} />, href: 'https://linkedin.com/in/joeolaoye',   label: 'LinkedIn' },
+    { icon: <Twitter size={17} />,  href: 'https://twitter.com/joeolaoye',       label: 'Twitter'  },
   ];
 
   return (
-    <section id="contact" className="section-padding bg-secondary/30">
+    <section
+      id="contact"
+      className="section-padding"
+      style={{ background: 'hsl(var(--surface-1))' }}
+    >
       <div className="container-max">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-primary">
-              Get In Touch
-            </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Ready to start your next project? I'd love to hear from you. 
-              Send me a message and let's discuss how we can work together.
-            </p>
-          </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="animate-slide-up">
-              <div className="portfolio-card p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <MessageCircle className="h-6 w-6 text-accent" />
-                  <h3 className="text-2xl font-bold text-card-foreground">
-                    Send a Message
-                  </h3>
-                </div>
+        {/* Section header */}
+        <div className="text-center mb-14">
+          <span className="section-label">Contact</span>
+          <h2
+            className="text-4xl md:text-5xl font-bold mb-4"
+            style={{ color: 'hsl(var(--foreground))' }}
+          >
+            Get in Touch
+          </h2>
+          <p
+            className="text-lg max-w-xl mx-auto"
+            style={{ color: 'hsl(var(--foreground-muted))' }}
+          >
+            Have a project in mind or want to explore working together?
+            I&apos;d love to hear from you.
+          </p>
+        </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Honeypot field for spam protection */}
-                  <input
-                    type="text"
-                    name="bot-field"
-                    style={{ display: 'none' }}
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
+        <div className="grid lg:grid-cols-5 gap-8 items-start">
 
+          {/* ── Form (3/5) ── */}
+          <div ref={formRef} className="reveal lg:col-span-3">
+            <div className="portfolio-card p-8">
+              <h3
+                className="text-xl font-bold mb-7"
+                style={{ color: 'hsl(var(--foreground))' }}
+              >
+                Send a Message
+              </h3>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot */}
+                <input
+                  type="text"
+                  name="bot-field"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  style={{ display: 'none' }}
+                />
+
+                <div className="grid sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium mb-2 text-card-foreground">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium mb-2"
+                      style={{ color: 'hsl(var(--foreground-muted))' }}
+                    >
                       Full Name
                     </label>
                     <Input
@@ -119,115 +149,202 @@ const ContactSection = () => {
                       name="name"
                       type="text"
                       required
-                      value={formData.name}
+                      value={form.name}
                       onChange={handleChange}
                       placeholder="Your full name"
-                      className="w-full"
+                      className="w-full rounded-xl border-0 ring-1"
+                      style={{
+                        background: 'hsl(var(--surface-2))',
+                        ringColor: 'hsl(var(--border))',
+                      }}
                     />
                   </div>
-
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium mb-2 text-card-foreground">
-                      Email Address
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium mb-2"
+                      style={{ color: 'hsl(var(--foreground-muted))' }}
+                    >
+                      Email
                     </label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
                       required
-                      value={formData.email}
+                      value={form.email}
                       onChange={handleChange}
-                      placeholder="your.email@example.com"
-                      className="w-full"
+                      placeholder="you@example.com"
+                      className="w-full rounded-xl border-0 ring-1"
+                      style={{ background: 'hsl(var(--surface-2))' }}
                     />
                   </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium mb-2 text-card-foreground">
-                      Message
-                    </label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      required
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Tell me about your project..."
-                      rows={5}
-                      className="w-full resize-none"
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full group"
-                  >
-                    {isSubmitting ? (
-                      'Sending...'
-                    ) : (
-                      <>
-                        Send Message
-                        <Send className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </div>
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-              <div>
-                <h3 className="text-2xl font-bold mb-6 text-primary">
-                  Contact Information
-                </h3>
-                <div className="space-y-4">
-                  {contactInfo.map((info, index) => (
-                    <div key={info.label} className="flex items-center gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 bg-accent/10 text-accent rounded-lg flex items-center justify-center">
-                        {info.icon}
-                      </div>
-                      <div>
-                        <p className="font-medium text-card-foreground">{info.label}</p>
-                        {info.link ? (
-                          <a
-                            href={info.link}
-                            className="text-muted-foreground hover:text-accent transition-colors"
-                          >
-                            {info.value}
-                          </a>
-                        ) : (
-                          <p className="text-muted-foreground">{info.value}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
                 </div>
-              </div>
 
-              <div className="portfolio-card p-6">
-                <h4 className="font-semibold mb-3 text-card-foreground">
-                  Response Time
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  I typically respond to all inquiries within 24 hours. For urgent 
-                  matters, feel free to reach out directly via phone or schedule 
-                  a consultation call.
-                </p>
-              </div>
+                <div>
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium mb-2"
+                    style={{ color: 'hsl(var(--foreground-muted))' }}
+                  >
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    required
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project, timeline, and goals..."
+                    rows={6}
+                    className="w-full rounded-xl resize-none border-0 ring-1"
+                    style={{ background: 'hsl(var(--surface-2))' }}
+                  />
+                </div>
 
-              <div className="portfolio-card p-6">
-                <h4 className="font-semibold mb-3 text-card-foreground">
-                  Project Inquiries
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  Whether you have a specific project in mind or just want to 
-                  explore possibilities, I'm here to help. No project is too 
-                  small or too complex!
-                </p>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-sm font-semibold transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed group"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-mid)))',
+                    color: 'white',
+                    boxShadow: '0 6px 20px hsl(262 75% 27% / 0.4)',
+                  }}
+                  onMouseEnter={e => {
+                    if (!isSubmitting) {
+                      (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(-2px)';
+                      (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 10px 28px hsl(262 75% 27% / 0.5)';
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLButtonElement).style.transform = 'translateY(0)';
+                    (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 6px 20px hsl(262 75% 27% / 0.4)';
+                  }}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span
+                        className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin"
+                      />
+                      Sending…
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send size={15} className="group-hover:translate-x-1 transition-transform duration-200" />
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+
+          {/* ── Sidebar (2/5) ── */}
+          <div ref={sidebarRef} className="reveal reveal-delay-2 lg:col-span-2 space-y-5">
+
+            {/* Contact info card */}
+            <div className="portfolio-card p-6 space-y-5">
+              <h3
+                className="text-base font-semibold"
+                style={{ color: 'hsl(var(--foreground))' }}
+              >
+                Contact Details
+              </h3>
+
+              {contactInfo.map(({ icon, label, value, href }) => (
+                <div key={label} className="flex items-start gap-3">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style={{
+                      background: 'hsl(var(--accent) / 0.12)',
+                      color: 'hsl(var(--accent))',
+                    }}
+                  >
+                    {icon}
+                  </div>
+                  <div>
+                    <p
+                      className="text-xs font-medium uppercase tracking-wider mb-0.5"
+                      style={{ color: 'hsl(var(--foreground-subtle))' }}
+                    >
+                      {label}
+                    </p>
+                    {href ? (
+                      <a
+                        href={href}
+                        className="text-sm font-medium transition-colors duration-150"
+                        style={{ color: 'hsl(var(--foreground-muted))' }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'hsl(var(--accent))'; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'hsl(var(--foreground-muted))'; }}
+                      >
+                        {value}
+                      </a>
+                    ) : (
+                      <p className="text-sm font-medium" style={{ color: 'hsl(var(--foreground-muted))' }}>
+                        {value}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Response time card */}
+            <div
+              className="rounded-2xl p-5"
+              style={{
+                background: 'linear-gradient(135deg, hsl(262 75% 18% / 0.5), hsl(248 60% 14% / 0.3))',
+                border: '1px solid hsl(262 75% 35% / 0.25)',
+              }}
+            >
+              <p
+                className="text-xs font-semibold uppercase tracking-widest mb-1"
+                style={{ color: 'hsl(var(--primary-bright))' }}
+              >
+                Response Time
+              </p>
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: 'hsl(var(--foreground-muted))' }}
+              >
+                I typically respond within 24 hours. For urgent matters, reach
+                out by phone or{' '}
+                <a
+                  href="https://calendly.com/joeolaoye/quick-free-consult"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'hsl(var(--accent))' }}
+                >
+                  book a call directly
+                </a>.
+              </p>
+            </div>
+
+            {/* Social links */}
+            <div className="portfolio-card p-5">
+              <p
+                className="text-xs font-semibold uppercase tracking-widest mb-4"
+                style={{ color: 'hsl(var(--foreground-subtle))' }}
+              >
+                Find Me On
+              </p>
+              <div className="flex gap-3">
+                {socials.map(({ icon, href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="social-btn"
+                  >
+                    {icon}
+                  </a>
+                ))}
               </div>
             </div>
+
           </div>
         </div>
       </div>
