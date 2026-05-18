@@ -214,9 +214,25 @@ export function About() {
 
       <div ref={ref} className="reveal" style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 80 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-          {CONTENT.about.paras.map((p, i) => (
-            <p key={i} style={{ color: 'var(--fg-2)', fontSize: 17, lineHeight: 1.65, maxWidth: '60ch' }}>{p}</p>
-          ))}
+          {/*
+            Bio prose with inline anchor links — kept here rather than in
+            content.ts so Kora / Flutterwave / Korapay stay clickable without
+            HTML-escaping a string field. Pulled from joeolaoye.co/blog bio
+            and the portfolio brief; phrasing reviewed by operator 2026-05-18.
+          */}
+          <p style={{ color: 'var(--fg-2)', fontSize: 17, lineHeight: 1.65, maxWidth: '60ch' }}>
+            I build and lead engineering teams that ship payments infrastructure, AI-native products, and 0→1 platforms. The work sits at the seams of trust, distribution, and AI — for emerging markets, creators, and the operators quietly rewriting how the internet runs.
+          </p>
+          <p style={{ color: 'var(--fg-2)', fontSize: 17, lineHeight: 1.65, maxWidth: '60ch' }}>
+            I'm a product architect more than a single discipline. I prototype quickly on AWS-first stacks, ship in small loops, and fold customer signal back into the system within days. The throughline across everything I build: a calm system underneath a loud product.
+          </p>
+          <p style={{ color: 'var(--fg-2)', fontSize: 17, lineHeight: 1.65, maxWidth: '60ch' }}>
+            Previously Director of Engineering / CTO at{' '}
+            <a href="https://korahq.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--fg)', textDecoration: 'underline', textDecorationColor: 'var(--violet)', textUnderlineOffset: '3px' }}>Kora</a>; founding engineer on the teams that became{' '}
+            <a href="https://flutterwave.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--fg)', textDecoration: 'underline', textDecorationColor: 'var(--violet)', textUnderlineOffset: '3px' }}>Flutterwave</a>{' '}and{' '}
+            <a href="https://korapay.com" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--fg)', textDecoration: 'underline', textDecorationColor: 'var(--violet)', textUnderlineOffset: '3px' }}>Korapay</a>. Now building independently from{' '}
+            <a href="https://tjoc.dev" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--fg)', textDecoration: 'underline', textDecorationColor: 'var(--violet)', textUnderlineOffset: '3px' }}>tjoc.dev</a>{' '}— a small portfolio of products and infrastructure for the next billion users coming online.
+          </p>
           <div style={{ display: 'flex', gap: 12, marginTop: 16, flexWrap: 'wrap' }}>
             <a className="btn btn-ghost" href="#contact">Work with me <Ico.arr /></a>
             <a className="btn btn-quiet" href="https://linkedin.com/in/joeolaoye" target="_blank" rel="noopener noreferrer"><Ico.ln /> LinkedIn</a>

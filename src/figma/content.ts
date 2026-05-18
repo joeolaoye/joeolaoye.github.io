@@ -25,7 +25,7 @@ export const CONTENT = {
     name: 'Joseph Olaoye',
     handle: 'joeolaoye',
     role: 'Founder · Product Architect · Systems Builder',
-    location: 'Lagos ↔ London',
+    location: 'Lagos · New York · London',
     email: 'hello@tjoc.dev',
     cal: 'cal.com/joeolaoye',
   },
@@ -43,7 +43,7 @@ export const CONTENT = {
     ],
     statusChips: [
       { label: 'AVAILABLE FOR SELECTED COLLABS', tone: 'live' as const },
-      { label: 'LAGOS · LONDON', tone: 'mono' as const },
+      { label: 'LAGOS · NEW YORK · LONDON', tone: 'mono' as const },
     ],
   },
 
@@ -61,11 +61,9 @@ export const CONTENT = {
 
   about: {
     title: 'I build infrastructure for the parts of the internet that everyone forgot.',
-    paras: [
-      "Most of the world's commerce, work, and discovery still runs on systems built for a different audience. I spend my time building the missing layers — trust rails for cross-border sellers, AI that respects how people actually job-hunt, distribution loops that don't burn capital, payment infrastructure for African operators serving local customers.",
-      "I'm a product architect more than a single discipline. I prototype quickly on AWS-first stacks, ship in small loops, and fold customer signal back into the system within days. The work sits where strategy, growth, AI tooling, and UX overlap — usually with a heavy bias toward Nigeria, the UK, and the operators serving both.",
-      "Before this I led engineering across Nigerian and UK fintechs, shipped neobanks at production scale, and consulted for founders on the architecture beneath their boldest bets. The throughline: build the calm system underneath the loud product.",
-    ],
+    // paras is rendered inline in src/figma/Sections.tsx (About component) so
+    // we can hyperlink Kora / Flutterwave / Korapay without escaping HTML.
+    paras: [],
     pillars: [
       { k: 'INFRA',     v: 'AWS-first stacks for emerging-market commerce' },
       { k: 'TRUST',     v: 'KYC, reputation, identity, audit rails' },
