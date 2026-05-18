@@ -45,7 +45,7 @@ export function Nav() {
           <a className="nav-link" href="#about">about</a>
           <a className="nav-link" href="#projects">projects</a>
           <a className="nav-link" href="#os">builder/os</a>
-          <a className="nav-link" href="#writing">decisions</a>
+          <a className="nav-link" href="#writing">thoughts</a>
           <a className="nav-link" href="#contact">contact</a>
         </div>
         <a href="#contact" className="btn btn-ghost" style={{ padding: '8px 14px', fontSize: 12 }}>
@@ -88,7 +88,7 @@ export function Hero() {
 
           <div className="hero-cta-row">
             <a href="#projects" className="btn btn-primary">View projects <Ico.arr /></a>
-            <a href="#writing" className="btn btn-ghost">Read decisions</a>
+            <a href="#writing" className="btn btn-ghost">Read thoughts</a>
             <a href="#contact" className="btn btn-quiet">Contact <span className="arr">→</span></a>
           </div>
 
@@ -520,28 +520,36 @@ export function BuilderOS() {
   )
 }
 
-// ───────── WRITING (Decisions) ─────────
+// ───────── WRITING — pulls from https://joeolaoye.co/blog/ ─────────
 export function Writing() {
   const [feat, ...rest] = CONTENT.writing
   return (
     <section className="section shell" id="writing">
       <div className="section-head">
         <div className="left">
-          <div className="eyebrow" style={{ marginBottom: 18 }}>04 / DECISIONS</div>
+          <div className="eyebrow" style={{ marginBottom: 18 }}>04 / THOUGHTS</div>
           <h2 className="h-section">Field notes from the <span className="text-grad">build floor</span>.</h2>
         </div>
         <div className="right">
-          <a className="btn btn-quiet" href="https://github.com/joeolaoye" target="_blank" rel="noopener noreferrer">All ADRs <Ico.arr /></a>
+          <a className="btn btn-quiet" href="https://joeolaoye.co/blog/posts/" target="_blank" rel="noopener noreferrer">All posts <Ico.arr /></a>
         </div>
       </div>
 
-      <div className="card" style={{
-        display: 'grid',
-        gridTemplateColumns: '1.4fr 1fr',
-        gap: 0,
-        marginBottom: 32,
-        overflow: 'hidden',
-      }}>
+      <a
+        href={feat.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="card"
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1.4fr 1fr',
+          gap: 0,
+          marginBottom: 32,
+          overflow: 'hidden',
+          cursor: 'pointer',
+          color: 'inherit',
+        }}
+      >
         <div style={{ padding: 40, display: 'flex', flexDirection: 'column', gap: 18 }}>
           <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
             <span className="chip live"><span className="chip-dot pulse"></span>LATEST</span>
@@ -551,29 +559,39 @@ export function Writing() {
           <h3 style={{ fontSize: 'clamp(28px, 3.4vw, 44px)', fontWeight: 600, letterSpacing: '-0.025em', lineHeight: 1.05, margin: 0, color: 'var(--fg)' }}>
             {feat.title}
           </h3>
-          <p style={{ color: 'var(--fg-2)', fontSize: 16, margin: 0 }}>
-            From the tjoc-studio ADR log — the decisions that shape how the portfolio gets built.
-          </p>
-          <div className="mono" style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 'auto', paddingTop: 16 }}>{feat.date} · ADR #{feat.num}</div>
+          <p style={{ color: 'var(--fg-2)', fontSize: 16, margin: 0 }}>{feat.excerpt}</p>
+          <div className="mono" style={{ fontSize: 11, color: 'var(--fg-3)', marginTop: 'auto', paddingTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+            {feat.date} · POST #{feat.num} <Ico.ext />
+          </div>
         </div>
         <div style={{ position: 'relative', minHeight: 320, background: 'linear-gradient(135deg, rgba(124,92,255,0.18), rgba(58,160,255,0.08))', borderLeft: '1px solid var(--line)', overflow: 'hidden' }}>
           <div className="mock-stripe"></div>
           <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 8 }}>
             <div style={{ fontSize: 72, fontWeight: 700, letterSpacing: '-0.04em', color: 'var(--fg)', lineHeight: 1, fontFamily: 'var(--display)' }}>#{feat.num}</div>
-            <div className="mono" style={{ fontSize: 11, color: 'var(--fg-3)', letterSpacing: '0.18em' }}>JOE / DECISIONS</div>
+            <div className="mono" style={{ fontSize: 11, color: 'var(--fg-3)', letterSpacing: '0.18em' }}>JOE / WRITING</div>
           </div>
         </div>
-      </div>
+      </a>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 0, borderTop: '1px solid var(--line)' }}>
         {rest.map((w, i) => (
-          <div key={w.num} style={{
-            display: 'flex', flexDirection: 'column', gap: 14, padding: '28px 0',
-            borderBottom: i < rest.length - (rest.length % 2 === 0 ? 2 : 1) ? '1px solid var(--line-soft)' : 'none',
-            paddingRight: i % 2 === 0 ? 32 : 0,
-            paddingLeft: i % 2 === 1 ? 32 : 0,
-            borderLeft: i % 2 === 1 ? '1px solid var(--line-soft)' : 'none',
-          }}>
+          <a
+            key={w.num}
+            href={w.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: 'flex', flexDirection: 'column', gap: 14, padding: '28px 0',
+              borderBottom: i < rest.length - (rest.length % 2 === 0 ? 2 : 1) ? '1px solid var(--line-soft)' : 'none',
+              paddingRight: i % 2 === 0 ? 32 : 0,
+              paddingLeft: i % 2 === 1 ? 32 : 0,
+              borderLeft: i % 2 === 1 ? '1px solid var(--line-soft)' : 'none',
+              color: 'inherit',
+              transition: 'transform 200ms var(--ease)',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateX(4px)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateX(0)' }}
+          >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span className="mono" style={{ fontSize: 11, color: 'var(--fg-4)' }}>#{w.num} · {w.tag}</span>
               <span className="mono" style={{ fontSize: 11, color: 'var(--fg-4)' }}>{w.date}</span>
@@ -581,8 +599,10 @@ export function Writing() {
             <div style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.015em', color: 'var(--fg)', lineHeight: 1.25 }}>
               {w.title}
             </div>
-            <div className="mono" style={{ fontSize: 11, color: 'var(--fg-3)' }}>{w.read}</div>
-          </div>
+            <div className="mono" style={{ fontSize: 11, color: 'var(--fg-3)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              Read on joeolaoye.co <Ico.ext />
+            </div>
+          </a>
         ))}
       </div>
     </section>

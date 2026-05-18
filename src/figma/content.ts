@@ -187,18 +187,82 @@ export const CONTENT = {
     ],
   },
 
-  // Recent portfolio decisions — sourced from tjoc-studio ADRs.
-  // Honest substitute for an essays list (none published yet); each entry is a
-  // real ADR you can point a reader at.
+  // Recent posts from https://joeolaoye.co/blog/ — fetched live during the
+  // redesign and inlined here. Newest first. The featured-card excerpt below
+  // mirrors the opening line of each post on the blog.
   writing: [
-    { num: '0025', title: 'Cloudflare Turnstile as the portfolio captcha standard.',                 tag: 'INFRA',     date: 'MAY 2026', read: 'ADR' },
-    { num: '0024', title: 'jobs.tjoc.dev: sales-led client onboarding (env-flagged self-serve).',     tag: 'PRODUCT',   date: 'MAY 2026', read: 'ADR' },
-    { num: '0023', title: 'USD as portfolio default currency, declared on every brief.',              tag: 'STRATEGY',  date: 'MAY 2026', read: 'ADR' },
-    { num: '0022', title: 'WiseMarket: email-only OTP — WebAuthn and SMS retired.',                   tag: 'AUTH',      date: 'MAY 2026', read: 'ADR' },
-    { num: '0017', title: 'Siloed Cognito user pools — paying duplication for exit optionality.',     tag: 'IDENTITY',  date: 'MAY 2026', read: 'ADR' },
-    { num: '0012', title: 'Portfolio payments strategy: Stripe default, conchpay for NUBAN+stables.', tag: 'PAYMENTS',  date: 'MAY 2026', read: 'ADR' },
-    { num: '0004', title: 'AWS-first, free-tier-priority, @tjoc/* mandatory — the baseline rules.',    tag: 'INFRA',     date: 'APR 2026', read: 'ADR' },
-    { num: '0001', title: 'tjoc-studio as a coordination brain, not a shippable product.',            tag: 'STUDIO',    date: 'APR 2026', read: 'ADR' },
+    {
+      num: '008',
+      title: 'Building Borderless: an OS for money movement',
+      tag: 'PAYMENTS',
+      date: 'APR 2026',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/borderless/',
+      excerpt: 'A few years ago I sat in an office in Lagos, watching a support queue fill up with the same message in different words: did it go through?',
+    },
+    {
+      num: '007',
+      title: 'From UUIDs to Snowflakes: how IDs grow up with your infrastructure',
+      tag: 'INFRA',
+      date: 'APR 2026',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/snowflake-ids/',
+      excerpt: 'The first time you pick an ID strategy for a new service, it does not feel like a decision. You reach for whatever the framework gives you.',
+    },
+    {
+      num: '006',
+      title: 'Production security: attack surfaces, and the cost of being overlooked',
+      tag: 'SECURITY',
+      date: 'JAN 2026',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/security/',
+      excerpt: 'Most production security problems do not start with elite hackers or clever zero-day exploits. They start with boring stuff — a debug endpoint that never got turned off.',
+    },
+    {
+      num: '005',
+      title: '2025: Foundations, Lessons, and Looking Ahead',
+      tag: 'REFLECTION',
+      date: 'DEC 2025',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/byebye2025/',
+      excerpt: '2025 was one of those years that quietly redraws the map of your life. I got the chance to work with a $6B company on AI and AI agents.',
+    },
+    {
+      num: '004',
+      title: '2025: The year of the AI agent',
+      tag: 'AI',
+      date: 'NOV 2025',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/2025/',
+      excerpt: 'AI agents came into their own this year. What does that mean for the future?',
+    },
+    {
+      num: '003',
+      title: 'AGENTS.md — Giving Coding Agents What They Need for Success',
+      tag: 'AI',
+      date: 'SEP 2025',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/agent/',
+      excerpt: 'AGENTS.md is a simple open format for guiding AI coding agents. Here is what it is, why it is valuable, and how to adopt it in your projects.',
+    },
+    {
+      num: '002',
+      title: 'Why Every Web Product Owner Should Care About Progressive Web Apps',
+      tag: 'PRODUCT',
+      date: 'SEP 2025',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/pwa/',
+      excerpt: 'PWAs combine the reach of the web with the experience of native apps. Here is why every product owner should consider adopting them.',
+    },
+    {
+      num: '001',
+      title: 'The App Is Not the Business',
+      tag: 'PRODUCT',
+      date: 'SEP 2025',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/app/',
+      excerpt: 'Building a mobile or web app is not the same as building a business. Founders need to focus on fundamentals, unit economics, and customer value — not just code.',
+    },
   ],
 
   collab: [
