@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import { CONTENT, type Project } from './content'
 import { Ico } from './icons'
 import { MapBackground } from './MapBackground'
+import { fetchBlogPosts, type BlogPost } from '@/lib/blog-feed'
 
 // ───────── helper: scroll-reveal ─────────
 function useReveal() {
@@ -538,7 +539,38 @@ export function BuilderOS() {
 
 // ───────── WRITING — pulls from https://joeolaoye.co/blog/ ─────────
 export function Writing() {
-  const [feat, ...rest] = CONTENT.writing
+  const [posts, setPosts] = useState<readonly BlogPost[]>(CONTENT.writing)
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    const refresh = async () => {
+      try {
+        const latest = await fetchBlogPosts(controller.signal)
+        if (latest.length > 0) setPosts(latest)
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return
+        // The inlined posts remain visible when the feed is temporarily unavailable.
+        console.warn('Could not refresh blog posts; using the embedded fallback.', error)
+      }
+    }
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') void refresh()
+    }
+
+    void refresh()
+    const interval = window.setInterval(refresh, 5 * 60 * 1000)
+    document.addEventListener('visibilitychange', onVisibilityChange)
+
+    return () => {
+      controller.abort()
+      window.clearInterval(interval)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+    }
+  }, [])
+
+  const [feat, ...rest] = posts
   return (
     <section className="section shell" id="writing">
       <div className="section-head">

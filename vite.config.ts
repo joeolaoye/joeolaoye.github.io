@@ -8,6 +8,14 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+      // Production serves the blog on the same origin. Mirror that locally so
+      // the writing section can consume Hugo's RSS feed without CORS issues.
+      "/blog": {
+        target: "https://joeolaoye.co",
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [
     react(),

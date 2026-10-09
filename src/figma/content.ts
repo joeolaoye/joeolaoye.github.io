@@ -185,12 +185,30 @@ export const CONTENT = {
     ],
   },
 
-  // Recent posts from https://joeolaoye.co/blog/ — fetched live during the
-  // redesign and inlined here. Newest first. The featured-card excerpt below
-  // mirrors the opening line of each post on the blog.
+  // Resilient fallback for the live RSS feed consumed by the Writing section.
+  // Visitors normally see the latest posts from /blog/posts/index.xml; this
+  // list is used only if that request is temporarily unavailable.
   writing: [
     {
-      num: '008',
+      num: '012',
+      title: 'AI amplifies your habits — the good ones and the bad ones',
+      tag: 'AI',
+      date: 'SEP 2026',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/ai-amplifies-habits/',
+      excerpt: 'The most useful way I have found to think about AI at work is not as automation, replacement, or even intelligence.',
+    },
+    {
+      num: '011',
+      title: 'Designing an idempotent payment endpoint (the part most tutorials skip)',
+      tag: 'PAYMENTS',
+      date: 'JUN 2026',
+      read: 'POST',
+      href: 'https://joeolaoye.co/blog/posts/idempotent/',
+      excerpt: "If you build or work on payment systems, you've almost certainly seen a version of this: a clean endpoint that charges a customer twice after a retry.",
+    },
+    {
+      num: '010',
       title: 'Building Borderless: an OS for money movement',
       tag: 'PAYMENTS',
       date: 'APR 2026',
@@ -199,7 +217,7 @@ export const CONTENT = {
       excerpt: 'A few years ago I sat in an office in Lagos, watching a support queue fill up with the same message in different words: did it go through?',
     },
     {
-      num: '007',
+      num: '009',
       title: 'From UUIDs to Snowflakes: how IDs grow up with your infrastructure',
       tag: 'INFRA',
       date: 'APR 2026',
@@ -208,7 +226,7 @@ export const CONTENT = {
       excerpt: 'The first time you pick an ID strategy for a new service, it does not feel like a decision. You reach for whatever the framework gives you.',
     },
     {
-      num: '006',
+      num: '008',
       title: 'Production security: attack surfaces, and the cost of being overlooked',
       tag: 'SECURITY',
       date: 'JAN 2026',
@@ -217,7 +235,7 @@ export const CONTENT = {
       excerpt: 'Most production security problems do not start with elite hackers or clever zero-day exploits. They start with boring stuff — a debug endpoint that never got turned off.',
     },
     {
-      num: '005',
+      num: '007',
       title: '2025: Foundations, Lessons, and Looking Ahead',
       tag: 'REFLECTION',
       date: 'DEC 2025',
@@ -226,7 +244,7 @@ export const CONTENT = {
       excerpt: '2025 was one of those years that quietly redraws the map of your life. I got the chance to work with a $6B company on AI and AI agents.',
     },
     {
-      num: '004',
+      num: '006',
       title: '2025: The year of the AI agent',
       tag: 'AI',
       date: 'NOV 2025',
@@ -235,31 +253,13 @@ export const CONTENT = {
       excerpt: 'AI agents came into their own this year. What does that mean for the future?',
     },
     {
-      num: '003',
+      num: '005',
       title: 'AGENTS.md — Giving Coding Agents What They Need for Success',
       tag: 'AI',
       date: 'SEP 2025',
       read: 'POST',
       href: 'https://joeolaoye.co/blog/posts/agent/',
       excerpt: 'AGENTS.md is a simple open format for guiding AI coding agents. Here is what it is, why it is valuable, and how to adopt it in your projects.',
-    },
-    {
-      num: '002',
-      title: 'Why Every Web Product Owner Should Care About Progressive Web Apps',
-      tag: 'PRODUCT',
-      date: 'SEP 2025',
-      read: 'POST',
-      href: 'https://joeolaoye.co/blog/posts/pwa/',
-      excerpt: 'PWAs combine the reach of the web with the experience of native apps. Here is why every product owner should consider adopting them.',
-    },
-    {
-      num: '001',
-      title: 'The App Is Not the Business',
-      tag: 'PRODUCT',
-      date: 'SEP 2025',
-      read: 'POST',
-      href: 'https://joeolaoye.co/blog/posts/app/',
-      excerpt: 'Building a mobile or web app is not the same as building a business. Founders need to focus on fundamentals, unit economics, and customer value — not just code.',
     },
   ],
 
