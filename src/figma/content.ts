@@ -27,7 +27,7 @@ export const CONTENT = {
     role: 'Founder · Product Architect · Systems Builder',
     location: 'Lagos · New York · London',
     email: 'hello@tjoc.dev',
-    cal: 'cal.com/joeolaoye',
+    cal: 'cal.com/joeolaoye/30min?overlayCalendar=true',
   },
 
   hero: {
