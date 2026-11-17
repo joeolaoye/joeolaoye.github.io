@@ -1,5 +1,7 @@
 import { ArrowUpRight, ArrowRight, Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { fetchBlogPosts, type BlogPost } from '@/lib/blog-feed'
+import blogFallback from '@/lib/blog-fallback.json'
 import { CONTENT } from '@/figma/content'
 
 const booking = `https://${CONTENT.brand.cal}`
@@ -13,6 +15,43 @@ function CallLink({ className = '' }: { className?: string }) {
   return <a className={`call-link ${className}`} href={booking} target="_blank" rel="noopener noreferrer">Book an intro call <ArrowUpRight size={18} aria-hidden="true" /></a>
 }
 
+function LatestPosts() {
+  const [posts, setPosts] = useState<BlogPost[]>(blogFallback as BlogPost[])
+  const [isLatest, setIsLatest] = useState(false)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetchBlogPosts(controller.signal)
+      .then((latest) => {
+        if (!controller.signal.aborted && latest.length) {
+          setPosts(latest.slice(0, 3))
+          setIsLatest(true)
+        }
+      })
+      .catch(() => { /* Keep readable, linked posts when the feed is unavailable. */ })
+    return () => controller.abort()
+  }, [])
+
+  return (
+    <section className="blog-section wrap" id="writing" aria-labelledby="blog-title">
+      <div className="work-heading">
+        <div><p className="eyebrow">04 / From the blog</p><h2 id="blog-title">{isLatest ? 'Latest posts.' : 'From my notebook.'}</h2></div>
+        <a className="text-link" href="https://joeolaoye.co/blog/">Visit the blog <ArrowUpRight size={17} aria-hidden="true" /></a>
+      </div>
+      <div className="blog-grid">
+        {posts.map(post => (
+          <article className="blog-post" key={post.href}>
+            <p className="post-meta">{post.date}</p>
+            <h3><a href={post.href}>{post.title}</a></h3>
+            <p className="post-excerpt">{post.excerpt}</p>
+            <a className="text-link" href={post.href} aria-label={`Read ${post.title}`}>Read post <ArrowUpRight size={16} aria-hidden="true" /></a>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 export default function Index() {
   const [menuOpen, setMenuOpen] = useState(false)
   return (
@@ -22,7 +61,7 @@ export default function Index() {
         <a className="wordmark" href="#" aria-label="Joseph Olaoye home">Joseph Olaoye<span>.</span></a>
         <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="main-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X /> : <Menu />}</button>
         <nav id="main-nav" className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation" onClick={() => setMenuOpen(false)}>
-          <a href="#services">How I help</a><a href="#projects">Selected work</a><a href="#about">About</a><CallLink />
+          <a href="#services">How I help</a><a href="#projects">Selected work</a><a href="#about">About</a><a href="https://joeolaoye.co/blog/">Blog</a><CallLink />
         </nav>
       </header>
       <main id="main">
@@ -54,9 +93,10 @@ export default function Index() {
           </div>
         </div></section>
         <section className="section about-section wrap" id="about" aria-labelledby="about-title"><div><p className="eyebrow">03 / The person behind the work</p><h2 id="about-title">A builder’s mindset.<br />A leader’s perspective.</h2><a className="text-link" href="https://linkedin.com/in/joeolaoye" target="_blank" rel="noopener noreferrer">More about my background <ArrowUpRight size={17} aria-hidden="true" /></a></div><div className="about-copy"><p>I’m Joseph Olaoye, a product architect and engineering leader. I’ve built and led teams working on payments infrastructure, AI products, and new platforms.</p><p>Previously, I was Director of Engineering / CTO at Kora and a founding engineer on the teams that became Flutterwave and Korapay. Today, I build independently through tjoc.dev and work with founders on the decisions and systems that move their products forward.</p><p className="personal-line">I like turning difficult problems into things people can actually use.</p><a className="writing-link" href="https://joeolaoye.co/blog/">Notes on building, technology, and the work in between <ArrowUpRight size={19} aria-hidden="true" /><span>Read my writing</span></a></div></section>
+        <LatestPosts />
         <section className="contact-section" id="contact" aria-labelledby="contact-title"><div className="wrap contact-inner"><div><p className="eyebrow">Your next move</p><h2 id="contact-title">What are you<br /><em>working on?</em></h2><p>Tell me where you want to go and what’s getting in the way.<br />We’ll talk through whether I’m the right person to help.</p></div><div className="contact-actions"><CallLink /><p>Prefer to write first?</p><a href={`mailto:${CONTENT.brand.email}`}>{CONTENT.brand.email} <ArrowUpRight size={16} aria-hidden="true" /></a></div></div></section>
       </main>
-      <footer className="site-footer wrap"><a className="wordmark" href="#">Joseph Olaoye<span>.</span></a><p>© {new Date().getFullYear()} Joseph Olaoye</p><div><a href="https://linkedin.com/in/joeolaoye" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/joeolaoye" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://joeolaoye.co/blog/">Writing</a></div></footer>
+      <footer className="site-footer wrap"><a className="wordmark" href="#">Joseph Olaoye<span>.</span></a><p>© {new Date().getFullYear()} Joseph Olaoye</p><div><a href="https://linkedin.com/in/joeolaoye" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/joeolaoye" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://joeolaoye.co/blog/">Blog</a></div></footer>
     </div>
   )
 }
