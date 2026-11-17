@@ -155,7 +155,7 @@ const ContactSection = () => {
                       className="w-full rounded-xl border-0 ring-1"
                       style={{
                         background: 'hsl(var(--surface-2))',
-                        ringColor: 'hsl(var(--border))',
+                        boxShadow: '0 0 0 1px hsl(var(--border))',
                       }}
                     />
                   </div>

@@ -390,7 +390,7 @@ type OsTab = 'experiments' | 'backlog' | 'stack' | 'log'
 
 export function BuilderOS() {
   const [tab, setTab] = useState<OsTab>('experiments')
-  const [logs, setLogs] = useState(CONTENT.os.log.slice(0, 5))
+  const [logs, setLogs] = useState<{ t: string; m: string }[]>(CONTENT.os.log.slice(0, 5))
   useEffect(() => {
     const queue = [
       { t: '08:55', m: 'jobs.tjoc.dev: ADR 0024 (sales-led) PR3 deployed' },
